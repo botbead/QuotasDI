@@ -32,7 +32,7 @@ __fastcall TUniForm3::TUniForm3(TComponent* Owner) : TUniForm(Owner) {
 void __fastcall TUniForm3::UniFormShow(TObject *Sender) {
 	//
 	// TUniBaseDBGridColumn* x= UniDBGrid1->Columns->Add();
-	// x->Title->Caption = "ÄãºÃ";
+	// x->Title->Caption = "ä½ å¥½";
 	// ShowMessage(x->Index);
 	int i, j, insert_flag = 0;
 	TUniBaseDBGridColumn* one_column = 0;
@@ -199,7 +199,7 @@ void __fastcall TUniForm3::UniDBGrid1ColumnSummaryResult
 	}
 	else {
 		Attribs->Font->Color = clBlue;
-		Result = "ºÏ¼Æ";
+		Result = "åˆè®¡";
 	}
 }
 // ---------------------------------------------------------------------------
@@ -207,7 +207,7 @@ void __fastcall TUniForm3::UniDBGrid1ColumnSummaryResult
 void __fastcall TUniForm3::UniFormCreate(TObject *Sender) {
 	UniDBGrid1->Summary->Enabled = true;
 	// SaveDialog1->DefaultExt = "xlsx";
-	// SaveDialog1->Filter = "±í¸ñÎÄ¼þ(*.xlsx)|*.xlsx|±í¸ñÎÄ¼þ(*.xls)|*.xls|ËùÓÐÎÄ¼þ(*.*)|*.*";
+	// SaveDialog1->Filter = "è¡¨æ ¼æ–‡ä»¶(*.xlsx)|*.xlsx|è¡¨æ ¼æ–‡ä»¶(*.xls)|*.xls|æ‰€æœ‰æ–‡ä»¶(*.*)|*.*";
 }
 
 // ---------------------------------------------------------------------------
@@ -263,14 +263,14 @@ void __fastcall TUniForm3::UniButton2Click(TObject *Sender) {
 		xls->SetCellValue(row, cs.col + 1,
 			TCellValue::Create(cs.sum.ToDouble()));
 	}
-	xls->SetCellValue(row, 1, TCellValue::Create(UnicodeString("ºÏ¼Æ")));
+	xls->SetCellValue(row, 1, TCellValue::Create(UnicodeString("åˆè®¡")));
 	e_c_map2.clear();
 
 	DateSeparator = '-';
 	TimeSeparator = '-';
 	// crt_ts = System::Dateutils::DateTimeToUnix(Now());
 	// xls_file_name = dir_name + "\\" + IntToStr((__int64)crt_ts) + ".xlsx";
-	xls_file_name = dir_name + "\\" + "Éè¼ÆÔº¼¨Ð§" + DateTimeToStr(Now()) + ".xlsx";
+	xls_file_name = dir_name + "\\" + "ç»©æ•ˆ" + DateTimeToStr(Now()) + ".xlsx";
 	xls->Save(xls_file_name);
 	UniSession->SendFile(xls_file_name);
 }
