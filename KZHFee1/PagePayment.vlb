@@ -1,0 +1,16 @@
+﻿[UniImage2]
+Coordinates=123,56,77,36
+
+[UniURLFrame1]
+Coordinates=10,56,103,36
+Visible=True
+
+[UniContainerPanel1]
+Coordinates=92,10,130,36
+
+[UniLabel1]
+Coordinates=10,10,72,36
+
+[]
+Coordinates=237,56,91,36
+

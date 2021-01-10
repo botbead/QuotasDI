@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{F29CD483-3A62-4289-B90B-E76E56B59C8B}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="KZHFee.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="httpSrvBankResp\httpSrvBankResp.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="KZHFee">
+        <MSBuild Projects="KZHFee.cbproj"/>
+    </Target>
+    <Target Name="KZHFee:Clean">
+        <MSBuild Projects="KZHFee.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="KZHFee:Make">
+        <MSBuild Projects="KZHFee.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="httpSrvBankResp">
+        <MSBuild Projects="httpSrvBankResp\httpSrvBankResp.cbproj"/>
+    </Target>
+    <Target Name="httpSrvBankResp:Clean">
+        <MSBuild Projects="httpSrvBankResp\httpSrvBankResp.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="httpSrvBankResp:Make">
+        <MSBuild Projects="httpSrvBankResp\httpSrvBankResp.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="KZHFee;httpSrvBankResp"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="KZHFee:Clean;httpSrvBankResp:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="KZHFee:Make;httpSrvBankResp:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

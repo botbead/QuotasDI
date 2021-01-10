@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/12/24 17:43:29.000.540,=E:\RadProjects\Unit1.cpp</Transaction>
+    <Transaction>2020/12/24 17:43:29.000.185,=E:\RadProjects\Project1PCH1.h</Transaction>
+    <Transaction>2020/12/28 17:26:58.000.511,=E:\RadProjects\Project1PCH1.h</Transaction>
+    <Transaction>2020/12/28 17:26:58.000.842,=E:\RadProjects\Unit1.cpp</Transaction>
+    <Transaction>2020/12/28 17:27:35.000.748,=E:\RadProjects\Unit2.cpp</Transaction>
+    <Transaction>2020/12/28 17:28:26.000.990,E:\RadProjects\Unit2.dfm=E:\RadProjects\KZHFee1\httpSrvBankResp\DM1.dfm</Transaction>
+    <Transaction>2020/12/28 17:28:26.000.990,E:\RadProjects\Unit2.cpp=E:\RadProjects\KZHFee1\httpSrvBankResp\DM1.cpp</Transaction>
+    <Transaction>2020/12/28 17:28:26.000.990,E:\RadProjects\Unit2.h=E:\RadProjects\KZHFee1\httpSrvBankResp\DM1.h</Transaction>
+    <Transaction>2020/12/28 17:28:41.000.892,E:\RadProjects\Unit1.cpp=E:\RadProjects\KZHFee1\httpSrvBankResp\MainGUI.cpp</Transaction>
+    <Transaction>2020/12/28 17:28:41.000.892,E:\RadProjects\Unit1.h=E:\RadProjects\KZHFee1\httpSrvBankResp\MainGUI.h</Transaction>
+    <Transaction>2020/12/28 17:28:41.000.892,E:\RadProjects\Unit1.dfm=E:\RadProjects\KZHFee1\httpSrvBankResp\MainGUI.dfm</Transaction>
+    <Transaction>2020/12/28 17:28:49.000.278,E:\RadProjects\Project1PCH1.h=E:\RadProjects\KZHFee1\httpSrvBankResp\Project1PCH1.h</Transaction>
+    <Transaction>2020/12/28 17:28:51.000.277,E:\RadProjects\KZHFee1\httpSrvBankResp\Project1PCH1.h=E:\RadProjects\KZHFee1\httpSrvBankResp\httpSrvBankRespPCH1.h</Transaction>
+    <Transaction>2020/12/28 17:28:51.000.286,E:\RadProjects\Project1.cbproj=E:\RadProjects\KZHFee1\httpSrvBankResp\httpSrvBankResp.cbproj</Transaction>
+    <Transaction>2020/12/28 23:47:45.000.923,=E:\RadStuioProjects\KZHFee1\httpSrvBankResp\File1.h</Transaction>
+    <Transaction>2020/12/28 23:48:11.000.286,E:\RadStuioProjects\KZHFee1\httpSrvBankResp\SimpleThreads.h=E:\RadStuioProjects\KZHFee1\httpSrvBankResp\File1.h</Transaction>
+    <Transaction>2020/12/28 23:53:57.000.747,=E:\RadStuioProjects\KZHFee1\httpSrvBankResp\SimpleThreads2.lib</Transaction>
+  </Transactions>
+</BorlandProject>
