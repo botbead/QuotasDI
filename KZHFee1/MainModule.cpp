@@ -23,7 +23,7 @@
 
 using namespace std;
 
-// ¸ÄÎªÄã×Ô¼ºµÄÊý¾Ý¿âÃû
+// æ”¹ä¸ºä½ è‡ªå·±çš„æ•°æ®åº“å
 #define DBNAME "YourDatabaseName"
 
 const UnicodeString params_name[] = {
@@ -32,12 +32,12 @@ const UnicodeString params_name[] = {
 	L"secret_key", L"sign", L"sign_type", L"request_url"};
 #ifdef _DEBUG
 const UnicodeString params_value[] = {
-	L"pay_service", L"1.0", L"utf-8", L"12093446", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
+	L"pay_service", L"1.0", L"utf-8", L"YourpartnerNumber", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
 	L"0002", L"pc", L"http://localhost:38361/files/result.html", L"secret_key", L"", L"MD5",
 	L"https://epay.qsbank.cc/epaygate/pay.htm"};
 #else
 const UnicodeString params_value[] = {
-	L"pay_service", L"1.0", L"utf-8", L"12093446", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
+	L"pay_service", L"1.0", L"utf-8", L"YourpartnerNumber", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
 	L"0002", L"pc", L"http://pay.jianxiangjiaoyu.com:38361/files/result.html", L"secret_key", L"", L"MD5",
 	L"https://epay.qsbank.cc/epaygate/pay.htm"};
 #endif
@@ -54,7 +54,7 @@ __fastcall TUniMainModule::TUniMainModule(TComponent* Owner, TComponent* AUniApp
 	encd = TEncoding::GetEncoding(65001);
 	stu_grade = 0;
 	schl_id = 0;
-	key = "boardFee0.0.0.1~Sys%botbead.com";
+	key = "XXTEA_KEY";
 }
 // ---------------------------------------------------------------------------
 
@@ -73,7 +73,7 @@ void __fastcall TUniMainModule::UniGUIMainModuleCreate(TObject *Sender) {
 	// The default value is 3306.
 	// UniConnection1->Port = 3306;
 	UniConnection1->Username = L"root";
-	// ÐÞ¸ÄÎªÄã×Ô¼ºµÄÃÜÂë
+	// ä¿®æ”¹ä¸ºä½ è‡ªå·±çš„å¯†ç 
 	UniConnection1->Password = L"YourPassword";
 	// By default, Direct is set to True.
 	// UniConnection1->SpecificOptions->Values["Direct"] = L"True";
