@@ -67,9 +67,12 @@ public: // User declarations
 
 	int protocol_flag;
 
+	int post_addr;
+
 	void __fastcall generate_guid(UnicodeString *);
 	void __fastcall generate_md5(UnicodeString *, UnicodeString *);
 	void __fastcall build_post_params(TList *, UnicodeString *, UnicodeString*, UnicodeString *);
+	void __fastcall try_to_buy(UnicodeString *, UnicodeString *, UnicodeString *);
 };
 
 // ---------------------------------------------------------------------------

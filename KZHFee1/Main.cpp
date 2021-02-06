@@ -50,7 +50,7 @@ wchar_t recommendation[] = {0x63A8, 0x8350, 0x0};
 wchar_t amount_zero[] = {0x7F34, 0x8D39, 0x91D1, 0x989D, 0xFF1A, 0x33, 0x38, 0x30, 0x30, 0x5143, 0x0};
 wchar_t zero_hint[] = {
 	0x60A8, 0x53EF, 0x5728, 0x670D, 0x52A1, 0x671F, 0x7ED3, 0x675F, 0x540E, 0x4E00, 0x4E2A, 0x6708, 0x5185, 0x7533,
-	0x8BF7, 0x5168, 0x989D, 0x9000, 0x6B3E, 0xFF1A, 0x0};
+	0x8BF7, 0x5168, 0x989D, 0x9000, 0x6B3E, 0x3002, 0x0};
 wchar_t srv_purchase[] = {0x8D2D, 0x4E70, 0x670D, 0x52A1, 0x0000};
 wchar_t dev_purchase[] = {0x8D2D, 0x4E70, 0x8BBE, 0x5907, 0x0000};
 wchar_t menu_title[8] = {0x4e00, 0x677f, 0x901a, 0x670d, 0x52a1, 0x5e73, 0x53f0, 0x0000};
@@ -64,7 +64,9 @@ wchar_t hotline[] = {
 };
 wchar_t menuitem_home[3] = {0x9996, 0x9875, 0x0000};
 wchar_t menuitem_pay_record[5] = {0x652f, 0x4ed8, 0x8bb0, 0x5f55, 0x0000};
-wchar_t menuitem_help[3] = {0x5e2e, 0x52a9, 0x0000};
+wchar_t menuitem_help[] = {
+	0x5BA2, 0x670D, 0x70ED, 0x7EBF, 0xFF1A, 0x30, 0x35, 0x33, 0x33, 0x2D, 0x38, 0x37, 0x39, 0x35, 0x32, 0x33, 0x37, 0x0
+};
 wchar_t purchase_hint1[] = {
 	0x6B22, 0x8FCE, 0x60A8, 0x4F7F, 0x7528, 0x4E00, 0x677F, 0x901A, 0x670D, 0x52A1, 0x5E73, 0x53F0, 0x63D0, 0x4F9B,
 	0x7684, 0x652F, 0x4ED8, 0x670D, 0x52A1, 0x3002, 0x8BF7, 0x6839, 0x636E, 0x7CFB, 0x7EDF, 0x63D0, 0x793A, 0x9009,
@@ -182,7 +184,8 @@ void __fastcall TMainForm::UniFormCreate(TObject * Sender) {
 	UniContainerPanel2->LayoutConfig->Height = L"100%";
 	UniContainerPanel2->LayoutAttribs->Pack = L"end";
 	UniContainerPanel2->Layout = L"hbox";
-	UniContainerPanel2->Width = 400;
+	UniContainerPanel2->Width = 600;
+	// UniContainerPanel2->LayoutConfig->Flex = 2;
 	UniContainerPanel2->LayoutConfig->Padding = L"17 0 17 50";
 
 	UniContainerPanel3->LayoutConfig->Height = L"100%";
@@ -196,8 +199,11 @@ void __fastcall TMainForm::UniFormCreate(TObject * Sender) {
 	UniImage2->LayoutConfig->Height = L"90%";
 
 	UniLabel5->LayoutConfig->Flex = 1;
-	UniLabel6->LayoutConfig->Flex = 1;
-	UniLabel7->LayoutConfig->Flex = 1;
+
+	// UniLabel6->LayoutConfig->Flex = 1;
+	// UniLabel7->LayoutConfig->Flex = 1;
+	UniLabel7->Width = 300;
+	UniLabel7->LayoutConfig->Margin = L"0 0 0 20";
 	UniLabel5->LayoutConfig->Height = L"90%";
 	UniLabel6->LayoutConfig->Height = L"90%";
 	UniLabel7->LayoutConfig->Height = L"90%";
@@ -701,7 +707,6 @@ void __fastcall TMainForm::UniCheckBox4Click(TObject *Sender) {
 void __fastcall TMainForm::UniButton1Click(TObject *Sender) {
 	// ShowMessage(alipay_hint);
 	TStringList *sl = new TStringList();
-	TStringList *sl1 = new TStringList();
 	int i;
 	TUniPagePayment *pagepay;
 	UnicodeString ts;
@@ -711,9 +716,16 @@ void __fastcall TMainForm::UniButton1Click(TObject *Sender) {
 #else
 	UnicodeString amount = L"799";
 #endif
-	UnicodeString product_name = descr_board;
 	prodc_name = descr_board;
-	mmodule->build_post_params((TList *)sl, &amount, &product_name, &product_name);
+
+	if (UniCheckBox1->Checked) {
+		mmodule->post_addr = 0;
+	}
+	else {
+		mmodule->post_addr = 1;
+	}
+
+	mmodule->build_post_params((TList *)sl, &amount, &prodc_name, &prodc_name);
 
 	r = NetHTTPRequest1->Post(L"https://epay.qsbank.cc/epaygate/pay.htm", sl, 0, mmodule->encd)->ContentAsString
 		(mmodule->encd);
@@ -735,12 +747,12 @@ void __fastcall TMainForm::UniButton1Click(TObject *Sender) {
 		ts = sl->Values[sl->Names[i]];
 
 		order_num = ts;
+		mmodule->try_to_buy(&order_num, &amount, &prodc_name);
 
 		pagepay = (TUniPagePayment*)UniMainModule()->GetFormInstance(__classid(TUniPagePayment));
 		pagepay->UniURLFrame1->URL = r;
 		pagepay->ShowModalN();
 	}
-	delete sl1;
 	delete sl;
 
 	// // TStringStream * fs = new TStringStream();
@@ -782,10 +794,22 @@ void __fastcall TMainForm::UniButton2Click(TObject *Sender) {
 	TUniPagePayment *pagepay;
 	UnicodeString ts;
 	UnicodeString r;
+
+#ifdef _DEBUG
+	UnicodeString amount = L"0.02";
+#else
 	UnicodeString amount = L"60";
-	UnicodeString product_name = descr_pen;
+#endif
 	prodc_name = descr_pen;
-	mmodule->build_post_params((TList *)sl, &amount, &product_name, &product_name);
+
+	if (UniCheckBox3->Checked) {
+		mmodule->post_addr = 0;
+	}
+	else {
+		mmodule->post_addr = 1;
+	}
+
+	mmodule->build_post_params((TList *)sl, &amount, &prodc_name, &prodc_name);
 
 	r = NetHTTPRequest1->Post(L"https://epay.qsbank.cc/epaygate/pay.htm", sl, 0, mmodule->encd)->ContentAsString
 		(mmodule->encd);
@@ -802,6 +826,7 @@ void __fastcall TMainForm::UniButton2Click(TObject *Sender) {
 		ts = sl->Values[sl->Names[i]];
 
 		order_num = ts;
+        mmodule->try_to_buy(&order_num, &amount, &prodc_name);
 
 		pagepay = (TUniPagePayment*)UniMainModule()->GetFormInstance(__classid(TUniPagePayment));
 		pagepay->UniURLFrame1->URL = r;
@@ -819,10 +844,15 @@ void __fastcall TMainForm::UniButton5Click(TObject *Sender) {
 	TUniPagePayment *pagepay;
 	UnicodeString ts;
 	UnicodeString r;
+
+#ifdef _DEBUG
+	UnicodeString amount = L"0.03";
+#else
 	UnicodeString amount = L"3800";
-	UnicodeString product_name = zero;
+#endif
+
 	prodc_name = zero;
-	mmodule->build_post_params((TList *)sl, &amount, &product_name, &product_name);
+	mmodule->build_post_params((TList *)sl, &amount, &prodc_name, &prodc_name);
 
 	r = NetHTTPRequest1->Post(L"https://epay.qsbank.cc/epaygate/pay.htm", sl, 0, mmodule->encd)->ContentAsString
 		(mmodule->encd);
@@ -839,6 +869,7 @@ void __fastcall TMainForm::UniButton5Click(TObject *Sender) {
 		ts = sl->Values[sl->Names[i]];
 
 		order_num = ts;
+		mmodule->try_to_buy(&order_num, &amount, &prodc_name);
 
 		pagepay = (TUniPagePayment*)UniMainModule()->GetFormInstance(__classid(TUniPagePayment));
 		pagepay->UniURLFrame1->URL = r;
@@ -855,10 +886,14 @@ void __fastcall TMainForm::UniButton4Click(TObject *Sender) {
 	TUniPagePayment *pagepay;
 	UnicodeString ts;
 	UnicodeString r;
+
+#ifdef _DEBUG
+	UnicodeString amount = L"0.04";
+#else
 	UnicodeString amount = L"720";
-	UnicodeString product_name = annual;
+#endif
 	prodc_name = annual;
-	mmodule->build_post_params((TList *)sl, &amount, &product_name, &product_name);
+	mmodule->build_post_params((TList *)sl, &amount, &prodc_name, &prodc_name);
 
 	r = NetHTTPRequest1->Post(L"https://epay.qsbank.cc/epaygate/pay.htm", sl, 0, mmodule->encd)->ContentAsString
 		(mmodule->encd);
@@ -875,7 +910,7 @@ void __fastcall TMainForm::UniButton4Click(TObject *Sender) {
 		ts = sl->Values[sl->Names[i]];
 
 		order_num = ts;
-
+        mmodule->try_to_buy(&order_num, &amount, &prodc_name);
 		pagepay = (TUniPagePayment*)UniMainModule()->GetFormInstance(__classid(TUniPagePayment));
 		pagepay->UniURLFrame1->URL = r;
 		pagepay->ShowModalN();
@@ -891,10 +926,15 @@ void __fastcall TMainForm::UniButton3Click(TObject *Sender) {
 	TUniPagePayment *pagepay;
 	UnicodeString ts;
 	UnicodeString r;
+
+#ifdef _DEBUG
+	UnicodeString amount = L"0.05";
+#else
 	UnicodeString amount = mmodule->fee_presetting;
-	UnicodeString product_name = full_amount;
+#endif
+
 	prodc_name = full_amount;
-	mmodule->build_post_params((TList *)sl, &amount, &product_name, &product_name);
+	mmodule->build_post_params((TList *)sl, &amount, &prodc_name, &prodc_name);
 
 	r = NetHTTPRequest1->Post(L"https://epay.qsbank.cc/epaygate/pay.htm", sl, 0, mmodule->encd)->ContentAsString
 		(mmodule->encd);
@@ -911,7 +951,7 @@ void __fastcall TMainForm::UniButton3Click(TObject *Sender) {
 		ts = sl->Values[sl->Names[i]];
 
 		order_num = ts;
-
+        mmodule->try_to_buy(&order_num, &amount, &prodc_name);
 		pagepay = (TUniPagePayment*)UniMainModule()->GetFormInstance(__classid(TUniPagePayment));
 		pagepay->UniURLFrame1->URL = r;
 		pagepay->ShowModalN();
@@ -949,8 +989,9 @@ void __fastcall TMainForm::UniTimer1Timer(TObject *Sender) {
 		mmodule->UniSQL1->SQL->Clear();
 		mmodule->UniSQL1->SQL->Add
 			(Sysutils::Format
-			(L"insert into orders(stuid, sclid, order_num, payment_status, payment_status_chinese, trade_num, money, time_end, product_descr) values(%d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s');",
-			ARRAYOFCONST((mmodule->usr_id, mmodule->schl_id, order_num, i, prefix, bf[2], bf[3], bf[4], prodc_name))));
+			(L"insert into orders(stuid, sclid, order_num, payment_status, payment_status_chinese, trade_num, money, time_end, product_descr, post_addr) values(%d, %d, '%s', %d, '%s', '%s', '%s', '%s', '%s', %d);",
+			ARRAYOFCONST((mmodule->usr_id, mmodule->schl_id, order_num, i, prefix, bf[2], bf[3], bf[4], prodc_name,
+			mmodule->post_addr))));
 
 		if (mmodule->UniConnection1->InTransaction);
 		else {

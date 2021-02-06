@@ -23,22 +23,24 @@
 
 using namespace std;
 
-// æ”¹ä¸ºä½ è‡ªå·±çš„æ•°æ®åº“å
-#define DBNAME "YourDatabaseName"
+// ¸ÄÎªÄã×Ô¼ºµÄÊý¾Ý¿âÃû
+#define DBNAME "db_kz_fee0"
 
 const UnicodeString params_name[] = {
 	L"service", L"service_version", L"input_charset", L"partner", L"out_trade_no", L"fee_type", L"total_fee",
 	L"subject", L"body", L"show_url", L"spbill_create_ip", L"trade_mode", L"trans_channel", L"return_url",
 	L"secret_key", L"sign", L"sign_type", L"request_url"};
+
+// L"http://localhost:38361/files/result.html"
 #ifdef _DEBUG
 const UnicodeString params_value[] = {
-	L"pay_service", L"1.0", L"utf-8", L"YourpartnerNumber", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
-	L"0002", L"pc", L"http://localhost:38361/files/result.html", L"secret_key", L"", L"MD5",
+	L"pay_service", L"1.0", L"utf-8", L"12093446", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
+	L"0002", L"pc", L"http://localhost:38361/files/result.html", L"jxjy1123", L"", L"MD5",
 	L"https://epay.qsbank.cc/epaygate/pay.htm"};
 #else
 const UnicodeString params_value[] = {
-	L"pay_service", L"1.0", L"utf-8", L"YourpartnerNumber", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
-	L"0002", L"pc", L"http://pay.jianxiangjiaoyu.com:38361/files/result.html", L"secret_key", L"", L"MD5",
+	L"pay_service", L"1.0", L"utf-8", L"12093446", L"", L"1", L"", L"", L"", L"http://pay.jianxiangjiaoyu.com", L"",
+	L"0002", L"pc", L"http://pay.jianxiangjiaoyu.com:38361/files/result.html", L"jxjy1123", L"", L"MD5",
 	L"https://epay.qsbank.cc/epaygate/pay.htm"};
 #endif
 // L"http://pay.jianxiangjiaoyu.com/files/result.html"
@@ -54,7 +56,7 @@ __fastcall TUniMainModule::TUniMainModule(TComponent* Owner, TComponent* AUniApp
 	encd = TEncoding::GetEncoding(65001);
 	stu_grade = 0;
 	schl_id = 0;
-	key = "XXTEA_KEY";
+	key = "boardFee0.0.0.1~Sys%botbead.com";
 }
 // ---------------------------------------------------------------------------
 
@@ -73,8 +75,8 @@ void __fastcall TUniMainModule::UniGUIMainModuleCreate(TObject *Sender) {
 	// The default value is 3306.
 	// UniConnection1->Port = 3306;
 	UniConnection1->Username = L"root";
-	// ä¿®æ”¹ä¸ºä½ è‡ªå·±çš„å¯†ç 
-	UniConnection1->Password = L"YourPassword";
+	// ÐÞ¸ÄÎªÄã×Ô¼ºµÄÃÜÂë
+	UniConnection1->Password = L"why1983316";
 	// By default, Direct is set to True.
 	// UniConnection1->SpecificOptions->Values["Direct"] = L"True";
 	UniConnection1->LoginPrompt = false;
@@ -164,4 +166,25 @@ void __fastcall TUniMainModule::build_post_params(TList *post_params, UnicodeStr
 	p_str_list->AddPair(params_name[signature], md5);
 	p_str_list->AddPair(params_name[signature_type], params_value[signature_type]);
 	delete sl;
+}
+
+void __fastcall TUniMainModule::try_to_buy(UnicodeString *order_num, UnicodeString *money, UnicodeString *product_descr)
+{
+	UniSQL1->SQL->Clear();
+	UniSQL1->SQL->Add
+		(Sysutils::Format
+		(L"insert into orders_trial(stuid, sclid, order_num, money, product_descr) values(%d, %d, '%s', '%s', '%s');",
+		ARRAYOFCONST((usr_id, schl_id, *order_num, *money, *product_descr))));
+
+	if (UniConnection1->InTransaction);
+	else {
+		UniConnection1->StartTransaction();
+		try {
+			UniSQL1->Execute();
+			UniConnection1->Commit();
+		}
+		catch (...) {
+			UniConnection1->Rollback();
+		}
+	}
 }

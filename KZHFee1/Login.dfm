@@ -85,7 +85,6 @@ object UniLoginForm1: TUniLoginForm1
       Width = 130
       Height = 13
       Hint = ''
-      Visible = False
       Caption = #26381#21153#28909#32447#65306'0533-8795237'
       ParentFont = False
       Font.Color = 9276813

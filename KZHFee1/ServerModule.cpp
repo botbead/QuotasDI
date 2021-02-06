@@ -19,7 +19,7 @@
 #pragma resource "*.dfm"
 
 // 改为你自己的数据库名
-#define DBNAME "YourDatabaseName"
+#define DBNAME "db_kz_fee0"
 
 wchar_t app_title[] = {0x5EFA, 0x4EAB, 0x4E00, 0x677F, 0x901A, 0x670D, 0x52A1, 0x5E73, 0x53F0, 0x0};
 
@@ -56,7 +56,7 @@ void __fastcall TUniServerModule::UniGUIServerModuleCreate(TObject *Sender) {
 	// UniConnection1->Port = 3306;
 	UniConnection1->Username = L"root";
 	// 修改为你自己的密码
-	UniConnection1->Password = L"YourPassword";
+	UniConnection1->Password = L"why1983316";
 	// By default, Direct is set to True.
 	// UniConnection1->SpecificOptions->Values["Direct"] = L"True";
 	UniConnection1->LoginPrompt = false;
@@ -131,6 +131,16 @@ payment_status_chinese varchar(10) not null default '支付正在处理中',\
 trade_num char(32) not null,\
 money varchar(11) not null,\
 time_end char(20) not null,\
+product_descr varchar(100) not null,\
+post_addr tinyint default 0, \
+foreign key(sclid) references school(scid)\
+)auto_increment=1000001;create table if not exists orders_trial(\
+oid integer primary key auto_increment,\
+stuid integer not null,\
+sclid integer not null,\
+order_num char(32) not null,\
+cts datetime default current_timestamp, \
+money varchar(11) not null,\
 product_descr varchar(100) not null,\
 foreign key(sclid) references school(scid)\
 )auto_increment=1000001;");

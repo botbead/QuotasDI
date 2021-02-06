@@ -1352,6 +1352,7 @@ object MainForm: TMainForm
               Width = 52
               Height = 13
               Hint = ''
+              Visible = False
               Caption = 'UniLabel28'
               TabOrder = 4
               LayoutConfig.Flex = 1
@@ -1471,6 +1472,7 @@ object MainForm: TMainForm
               Width = 52
               Height = 13
               Hint = ''
+              Visible = False
               Caption = 'UniLabel33'
               TabOrder = 4
               LayoutConfig.Flex = 1
