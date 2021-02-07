@@ -18,7 +18,7 @@
 #pragma link "UniScript"
 #pragma resource "*.dfm"
 
-// ¸ÄÎªÄã×Ô¼ºµÄÊı¾İ¿âÃû
+// æ”¹ä¸ºä½ è‡ªå·±çš„æ•°æ®åº“å
 #define DBNAME "db_kz_fee0"
 
 wchar_t app_title[] = {0x5EFA, 0x4EAB, 0x4E00, 0x677F, 0x901A, 0x670D, 0x52A1, 0x5E73, 0x53F0, 0x0};
@@ -55,8 +55,8 @@ void __fastcall TUniServerModule::UniGUIServerModuleCreate(TObject *Sender) {
 	// The default value is 3306.
 	// UniConnection1->Port = 3306;
 	UniConnection1->Username = L"root";
-	// ĞŞ¸ÄÎªÄã×Ô¼ºµÄÃÜÂë
-	UniConnection1->Password = L"why1983316";
+	// ä¿®æ”¹ä¸ºä½ è‡ªå·±çš„å¯†ç 
+	UniConnection1->Password = L"MyPassword";
 	// By default, Direct is set to True.
 	// UniConnection1->SpecificOptions->Values["Direct"] = L"True";
 	UniConnection1->LoginPrompt = false;
@@ -127,7 +127,7 @@ stuid integer not null,\
 sclid integer not null,\
 order_num char(32) not null,\
 payment_status tinyint not null,\
-payment_status_chinese varchar(10) not null default 'Ö§¸¶ÕıÔÚ´¦ÀíÖĞ',\
+payment_status_chinese varchar(10) not null default 'æ”¯ä»˜æ­£åœ¨å¤„ç†ä¸­',\
 trade_num char(32) not null,\
 money varchar(11) not null,\
 time_end char(20) not null,\
