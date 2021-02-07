@@ -23,7 +23,7 @@
 
 using namespace std;
 
-// ¸ÄÎªÄã×Ô¼ºµÄÊý¾Ý¿âÃû
+// æ”¹ä¸ºä½ è‡ªå·±çš„æ•°æ®åº“å
 #define DBNAME "db_kz_fee0"
 
 const UnicodeString params_name[] = {
@@ -75,8 +75,8 @@ void __fastcall TUniMainModule::UniGUIMainModuleCreate(TObject *Sender) {
 	// The default value is 3306.
 	// UniConnection1->Port = 3306;
 	UniConnection1->Username = L"root";
-	// ÐÞ¸ÄÎªÄã×Ô¼ºµÄÃÜÂë
-	UniConnection1->Password = L"why1983316";
+	// ä¿®æ”¹ä¸ºä½ è‡ªå·±çš„å¯†ç 
+	UniConnection1->Password = L"MyPassword";
 	// By default, Direct is set to True.
 	// UniConnection1->SpecificOptions->Values["Direct"] = L"True";
 	UniConnection1->LoginPrompt = false;
