@@ -56,7 +56,7 @@ __fastcall TUniMainModule::TUniMainModule(TComponent* Owner, TComponent* AUniApp
 	encd = TEncoding::GetEncoding(65001);
 	stu_grade = 0;
 	schl_id = 0;
-	key = "boardFee0.0.0.1~Sys%botbead.com";
+	key = "EncryptionPassword";
 }
 // ---------------------------------------------------------------------------
 
